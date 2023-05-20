@@ -5,20 +5,21 @@
 #include "ContextSwitch.h"
 
 int main() {
+    // Create a Scheduler
     Scheduler scheduler;
+
+    // Create a SystemCall interface, which takes the scheduler as a parameter
     SystemCall sysCall(scheduler);
-    ContextSwitch contextSwitch;
 
-    sysCall.createProcess(1, 1);
-    sysCall.createProcess(2, 2);
-    sysCall.createProcess(3, 3);
-    sysCall.createProcess(4, 4);
-    sysCall.createProcess(5, 5);
+    // Use the SystemCall interface to create some processes
+    sysCall.createProcess(1, 5);
+    sysCall.createProcess(2, 3);
+    sysCall.createProcess(3, 7);
 
-    sysCall.terminateProcess(3);
-    sysCall.terminateProcess(4);
-
-    scheduler.schedule();
+    // Use the Scheduler to schedule the processes
+    while (scheduler.getCurrentProcess() != nullptr) {
+        scheduler.schedule();
+    }
 
     return 0;
 }
